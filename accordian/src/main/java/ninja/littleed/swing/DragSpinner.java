@@ -15,13 +15,11 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
 
 /**
- * An integer spinner with a slide.
+ * A spinner incremented and decremented by mouse drags. Might drop trying to
+ * use the spinner model unless there's a cleaner way to do the drag evaluation.
  * 
  * @author LittleEd
  * 
@@ -39,20 +37,25 @@ public class DragSpinner extends JComponent {
 		this(new DefaultSpinnerModel());
 	}
 
-	public DragSpinner(DragSpinnerModel model) {
+	public DragSpinner(DragSpinnerModel spinnerModel) {
 		changeListener = new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				// TODO Validate
 				// TODO Determine if we should update text field?
+				try {
+					String value = model.getValue().toString();
+					textField.setText(value);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
 			}
 		};
-		this.model = model;
-		model.addChangeListener(changeListener);
-		
-		textField = new JTextField(model.getPreferredNumberOfColumns());
+		this.model = spinnerModel;
+		spinnerModel.addChangeListener(changeListener);
+
+		textField = new JTextField(spinnerModel.getPreferredNumberOfColumns());
 		textField.setCursor(Cursor.getPredefinedCursor(Cursor.W_RESIZE_CURSOR));
 		document = new PlainDocument();
-		document.setDocumentFilter(new DragSpinnerDocumentFilter());
 		textFieldDraglistener = new DragSpinnerMouseMotionListener();
 		textField.setDocument(document);
 		textField.addMouseMotionListener(textFieldDraglistener);
@@ -60,23 +63,23 @@ public class DragSpinner extends JComponent {
 		setLayout(new BorderLayout());
 		add(textField);
 	}
-	
+
 	private class DragSpinnerMouseMotionListener extends MouseAdapter {
-		private int lastPosition=0;
-		
+		private Integer origin = null;
+
 		@Override
 		public void mousePressed(MouseEvent e) {
-			lastPosition=0;
+			origin = null;
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			lastPosition=0;
+			origin = null;
 		}
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			lastPosition=0;
+			origin = null;
 		}
 
 		@Override
@@ -86,31 +89,19 @@ public class DragSpinner extends JComponent {
 		}
 
 		public void mouseDragged(MouseEvent e) {
-			//Increment last position
+			if (origin == null) {
+				origin = e.getX();
+			} else {
+				int distance = origin - e.getX();
+				if (distance < -5) {
+					model.setValue(model.getNextValue());
+					origin = e.getX();
+				} else if (distance > 5) {
+					model.setValue(model.getPreviousValue());
+					origin = e.getX();
+				}
+			}
 		}
-	}
-
-	private class DragSpinnerDocumentFilter extends DocumentFilter {
-
-		@Override
-		public void remove(FilterBypass fb, int offset, int length)
-				throws BadLocationException {
-			// Need to determine total value
-			super.remove(fb, offset, length);
-		}
-
-		@Override
-		public void insertString(FilterBypass fb, int offset, String string,
-				AttributeSet attr) throws BadLocationException {
-			super.insertString(fb, offset, string, attr);
-		}
-
-		@Override
-		public void replace(FilterBypass fb, int offset, int length,
-				String text, AttributeSet attrs) throws BadLocationException {
-			super.replace(fb, offset, length, text, attrs);
-		}
-
 	}
 
 	public static void main(String[] args) {
