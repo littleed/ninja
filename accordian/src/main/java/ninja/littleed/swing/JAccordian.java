@@ -1,4 +1,4 @@
-package ninja.littleed;
+package ninja.littleed.swing;
 
 import info.clearthought.layout.TableLayout;
 
