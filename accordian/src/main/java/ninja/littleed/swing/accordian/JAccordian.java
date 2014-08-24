@@ -1,4 +1,4 @@
-package ninja.littleed.swing;
+package ninja.littleed.swing.accordian;
 
 import info.clearthought.layout.TableLayout;
 

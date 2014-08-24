@@ -1,7 +1,5 @@
 package ninja.littleed.swing.dragspinner;
 
-import info.clearthought.layout.TableLayout;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -9,10 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
@@ -22,8 +17,7 @@ import javax.swing.text.Document;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
 
-import ninja.littleed.swing.dragspinner.integer.IntegerSpinnerModel;
-import ninja.littleed.swing.dragspinner.integer.IntegerStringConverter;
+import ninja.littleed.swing.dragspinner.integer.Orientation;
 
 /**
  * Much like a spinner component where the incrementing and decrementing of
@@ -38,11 +32,12 @@ import ninja.littleed.swing.dragspinner.integer.IntegerStringConverter;
 public class DragSpinner<T> extends JComponent {
 
 	private static final long serialVersionUID = -7020677235459510600L;
-	//Keeps track on the current enablement.
+	// Keeps track on the current enablement.
 	private boolean enabled = true;
-	//Prevents cyclic calls that lead to OutOfMem exceptions.
+	// Prevents cyclic calls that lead to OutOfMem exceptions.
 	private boolean suppressUpdate = false;
 	private int resolution = 5;
+	private DragSpinnerControl line;
 	private DragSpinnerModel<T> model;
 	private DragSpinnerRenderer<T> renderer;
 	private ChangeListener changeListener;
@@ -89,12 +84,16 @@ public class DragSpinner<T> extends JComponent {
 			}
 		});
 		textField.setDocument(document);
-		textField.addMouseMotionListener(textFieldListener);
-		textField.addMouseListener(textFieldListener);
 		textField.setEnabled(false);
+
+		line = new DragSpinnerControl();
+		line.setOrientation(Orientation.VERTICAL);
+		line.addMouseMotionListener(textFieldListener);
+		line.addMouseListener(textFieldListener);
 
 		setLayout(new BorderLayout());
 		add(textField);
+		add(line, BorderLayout.SOUTH);
 		refreshEnablement();
 	}
 
@@ -231,6 +230,34 @@ public class DragSpinner<T> extends JComponent {
 		this.resolution = resolution;
 	}
 
+	public void setControlLocation(String controlLocation) {
+		remove(line);
+		if (controlLocation == BorderLayout.WEST
+				|| controlLocation == BorderLayout.EAST) {
+			line.setOrientation(Orientation.VERTICAL);
+		} else if (controlLocation == BorderLayout.NORTH
+				|| controlLocation == BorderLayout.SOUTH) {
+			line.setOrientation(Orientation.HORIZONTAL);
+		} else {
+			throw new IllegalArgumentException(
+					"control location needs to be one of BorderLayout's compass directions.");
+		}
+		add(line, controlLocation);
+		invalidate();
+		revalidate();
+		refreshEnablement();
+	}
+
+	/**
+	 * Vertical or horizontal, depending on which way the control line is set
+	 * up.
+	 * 
+	 * @return
+	 */
+	public Orientation getOrientation() {
+		return line.getOrientation();
+	}
+
 	/**
 	 * The text field will only be editable if a renderer has been supplied.
 	 * This ensures that this is checked before the text field is enabled.
@@ -238,11 +265,15 @@ public class DragSpinner<T> extends JComponent {
 	private void refreshEnablement() {
 		textField.setEnabled(enabled && renderer != null);
 		if (enabled) {
-			textField.setCursor(Cursor
-					.getPredefinedCursor(Cursor.W_RESIZE_CURSOR));
+			if (getOrientation().equals(Orientation.HORIZONTAL)) {
+				line.setCursor(Cursor
+						.getPredefinedCursor(Cursor.W_RESIZE_CURSOR));
+			} else {
+				line.setCursor(Cursor
+						.getPredefinedCursor(Cursor.N_RESIZE_CURSOR));
+			}
 		} else {
-			textField.setCursor(Cursor
-					.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+			line.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		}
 	}
 
@@ -320,10 +351,20 @@ public class DragSpinner<T> extends JComponent {
 		public void mouseDragged(MouseEvent e) {
 			if (enabled) {
 				if (origin == null) {
-					origin = e.getX();
+					if (getOrientation() == Orientation.HORIZONTAL) {
+						origin = e.getX();
+					} else {
+						origin = e.getY();
+					}
 					tempValue = model.getValue();
 				} else {
-					int distance = e.getX() - origin;
+					int distance;
+					if (getOrientation() == Orientation.HORIZONTAL) {
+						distance = e.getX() - origin;
+					} else {
+						distance = origin - e.getY();
+					}
+
 					int steps = distance / resolution;
 					model.setValue(model.getNextValue(tempValue, steps));
 					validateValue();
@@ -338,32 +379,5 @@ public class DragSpinner<T> extends JComponent {
 		public void mouseReleased(MouseEvent e) {
 			origin = null;
 		}
-	}
-
-	/**
-	 * For testing.
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// Set up components
-		JFrame testFrame = new JFrame();
-		testFrame.setSize(800, 600);
-		testFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		// Add to frame
-		JPanel panel = new JPanel(
-				new TableLayout(new double[][] {
-						{ TableLayout.FILL, TableLayout.PREFERRED,
-								TableLayout.FILL },
-						{ TableLayout.FILL, TableLayout.PREFERRED,
-								TableLayout.FILL } }));
-		DragSpinner<Integer> spinner = new DragSpinner<Integer>();
-		spinner.setModel(new IntegerSpinnerModel());
-		spinner.setColumns(String.valueOf(Integer.MAX_VALUE).length());
-		spinner.setRenderer(new IntegerStringConverter());
-
-		panel.add(spinner, "1,1");
-		testFrame.setContentPane(panel);
-		testFrame.setVisible(true);
 	}
 }

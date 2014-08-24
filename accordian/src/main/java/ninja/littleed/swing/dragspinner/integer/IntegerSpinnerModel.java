@@ -22,6 +22,7 @@ public class IntegerSpinnerModel implements DragSpinnerModel<Integer> {
 	private Integer min = Integer.MIN_VALUE;
 	private Integer max = Integer.MAX_VALUE;
 	private List<ChangeListener> changeListeners;
+	
 
 	/**
 	 * The minimum allowed value.
@@ -89,7 +90,11 @@ public class IntegerSpinnerModel implements DragSpinnerModel<Integer> {
 	 * Returns true if the value is valid, as determined by the allowable range.
 	 */
 	public boolean isValueValid() {
-		return value != null && value == getValidValue(value);
+		if(value==null){
+			return false;
+		}else{
+			return value.equals(getValidValue(value));
+		}
 	}
 
 	/**
