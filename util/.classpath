@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry including="**/*.java" kind="src" output="target/test-classes" path="src/test/java"/>
+	<classpathentry including="**/*.java" kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/tablelayout/TableLayout/20050920/TableLayout-20050920.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/LittleEd/.m2/repository/tablelayout/TableLayout/20050920/TableLayout-20050920-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/org/swinglabs/swingx/1.6.1/swingx-1.6.1.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/LittleEd/.m2/repository/org/swinglabs/swingx/1.6.1/swingx-1.6.1-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/com/jhlabs/filters/2.0.235/filters-2.0.235.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/swinglabs/swing-worker/1.1/swing-worker-1.1.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/LittleEd/.m2/repository/org/swinglabs/swing-worker/1.1/swing-worker-1.1-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/com/fifesoft/rsyntaxtextarea/2.5.3/rsyntaxtextarea-2.5.3.jar" sourcepath="/M2_REPO/com/fifesoft/rsyntaxtextarea/2.5.3/rsyntaxtextarea-2.5.3-javadoc.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/LittleEd/.m2/repository/com/fifesoft/rsyntaxtextarea/2.5.3/rsyntaxtextarea-2.5.3-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>
