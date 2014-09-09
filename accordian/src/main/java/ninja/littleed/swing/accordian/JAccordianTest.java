@@ -1,6 +1,7 @@
 package ninja.littleed.swing.accordian;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,8 +25,13 @@ final class JAccordianTest {
 
 	public static void main(String[] args) {
 		final JAccordian accordian = new JAccordian();
-		accordian.addComponent(getTestTitle("1"), new JLabel(
-				"This is a label 1"));
+		accordian.setSpacing(3);
+		accordian.setSpineColour(new Color(255,2,253));
+		JLabel blackLabel = new JLabel("This is label 1");
+		blackLabel.setOpaque(true);
+		blackLabel.setBackground(Color.BLACK);
+		blackLabel.setForeground(Color.WHITE);
+		accordian.addComponent(getTestTitle("1"), blackLabel);
 		accordian.addComponent(getTestTitle("2"), new JLabel(
 				"This is a label 2"));
 		accordian.addComponent(getTestTitle("3"), new JLabel(

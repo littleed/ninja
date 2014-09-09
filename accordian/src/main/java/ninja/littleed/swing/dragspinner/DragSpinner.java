@@ -105,6 +105,7 @@ public class DragSpinner<T> extends JComponent {
 	public DragSpinner(DragSpinnerModel<T> spinnerModel) {
 		this();
 		setModel(spinnerModel);
+		setControlLocation(BorderLayout.SOUTH);
 	}
 
 	/**

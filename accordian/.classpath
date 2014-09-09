@@ -5,10 +5,22 @@
   <classpathentry kind="src" path="src/main/resources" excluding="**/*.java"/>
   <classpathentry kind="output" path="target/classes"/>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-  <classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar"/>
-  <classpathentry kind="var" path="M2_REPO/tablelayout/TableLayout/20050920/TableLayout-20050920.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/swinglabs/swingx/1.6.1/swingx-1.6.1.jar"/>
-  <classpathentry kind="var" path="M2_REPO/com/jhlabs/filters/2.0.235/filters-2.0.235.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/swinglabs/swing-worker/1.1/swing-worker-1.1.jar"/>
-  <classpathentry kind="var" path="M2_REPO/com/kitfox/svg/svg-salamander/1.0/svg-salamander-1.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar" sourcepath="M2_REPO/junit/junit/3.8.1/junit-3.8.1-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/tablelayout/TableLayout/20050920/TableLayout-20050920.jar" sourcepath="M2_REPO/tablelayout/TableLayout/20050920/TableLayout-20050920-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/C:/Users/LittleEd/.m2/repository/tablelayout/TableLayout/20050920/TableLayout-20050920-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/org/swinglabs/swingx/1.6.1/swingx-1.6.1.jar" sourcepath="M2_REPO/org/swinglabs/swingx/1.6.1/swingx-1.6.1-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/C:/Users/LittleEd/.m2/repository/org/swinglabs/swingx/1.6.1/swingx-1.6.1-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/com/jhlabs/filters/2.0.235/filters-2.0.235.jar" sourcepath="M2_REPO/com/jhlabs/filters/2.0.235/filters-2.0.235-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/swinglabs/swing-worker/1.1/swing-worker-1.1.jar" sourcepath="M2_REPO/org/swinglabs/swing-worker/1.1/swing-worker-1.1-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/C:/Users/LittleEd/.m2/repository/org/swinglabs/swing-worker/1.1/swing-worker-1.1-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/com/kitfox/svg/svg-salamander/1.0/svg-salamander-1.0.jar" sourcepath="M2_REPO/com/kitfox/svg/svg-salamander/1.0/svg-salamander-1.0-sources.jar"/>
 </classpath>

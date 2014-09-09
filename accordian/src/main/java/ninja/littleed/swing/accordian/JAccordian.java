@@ -2,6 +2,7 @@ package ninja.littleed.swing.accordian;
 
 import info.clearthought.layout.TableLayout;
 
+import java.awt.Color;
 import java.awt.Component;
 
 import javax.swing.JComponent;
@@ -19,6 +20,7 @@ import javax.swing.JComponent;
 public class JAccordian extends JComponent {
 
 	private TableLayout tableLayout;
+	private Color spineColour = new Color(51,51,255);
 
 	/**
 	 * Creates a default JAccordian.
@@ -27,6 +29,23 @@ public class JAccordian extends JComponent {
 		tableLayout = new TableLayout(
 				new double[][] { {}, { TableLayout.FILL } });
 		setLayout(tableLayout);
+	}
+
+	public Color getSpineColour() {
+		return spineColour;
+	}
+
+	public void setSpineColour(Color spineColour) {
+		this.spineColour = spineColour;
+	}
+	
+	public void setSpacing(int spacing){
+		tableLayout.setHGap(spacing);
+		tableLayout.setVGap(spacing);
+	}
+	
+	public int getSpacing(){
+		return tableLayout.getHGap();
 	}
 
 	/**
@@ -38,7 +57,7 @@ public class JAccordian extends JComponent {
 	public void addComponent(JComponent title, JComponent component) {
 		tableLayout.insertColumn(tableLayout.getNumColumn(),
 				TableLayout.PREFERRED);
-		add(new JAccordianBellow(title, component),
+		add(new JAccordianBellow(title, component, spineColour),
 				(tableLayout.getNumColumn() - 1) + ",0");
 		tableLayout.layoutContainer(this);
 	}
@@ -97,3 +116,4 @@ public class JAccordian extends JComponent {
 		return true;
 	}
 }
+

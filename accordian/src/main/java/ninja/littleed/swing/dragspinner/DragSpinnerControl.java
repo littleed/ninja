@@ -93,11 +93,11 @@ class DragSpinnerControl extends JComponent {
 	 */
 	private void refreshComponent() {
 		if (orientation == Orientation.VERTICAL) {
-			setPreferredSize(new Dimension(controlSize, -1));
-			setMinimumSize(new Dimension(controlSize, -1));
+			setPreferredSize(new Dimension(controlSize+1, -1));
+			setMinimumSize(new Dimension(controlSize+1, -1));
 		} else {
-			setPreferredSize(new Dimension(-1, controlSize));
-			setMinimumSize(new Dimension(-1, controlSize));
+			setPreferredSize(new Dimension(-1, controlSize+1));
+			setMinimumSize(new Dimension(-1, controlSize+1));
 		}
 		invalidate();
 	}
@@ -111,7 +111,7 @@ class DragSpinnerControl extends JComponent {
 		Graphics2D gg = (Graphics2D) g;
 		gg.setPaint(getForeground());
 		gg.setStroke(lineStroke);
-		int end = controlSize - 1;
+		int end = controlSize;
 		int midpoint = end / 2;
 		int w = getWidth();
 		int h = getHeight();
