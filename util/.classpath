@@ -9,7 +9,7 @@
 			<attribute name="javadoc_location" value="jar:file:/C:/Users/LittleEd/.m2/repository/tablelayout/TableLayout/20050920/TableLayout-20050920-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="var" path="M2_REPO/org/swinglabs/swingx/1.6.1/swingx-1.6.1.jar">
+	<classpathentry kind="var" path="M2_REPO/org/swinglabs/swingx/1.6.1/swingx-1.6.1.jar" sourcepath="/M2_REPO/org/swinglabs/swingx/1.6.1/swingx-1.6.1-javadoc.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:file:/C:/Users/LittleEd/.m2/repository/org/swinglabs/swingx/1.6.1/swingx-1.6.1-javadoc.jar!/"/>
 		</attributes>
