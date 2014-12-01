@@ -10,10 +10,14 @@ public class MergeFieldTransferable implements Transferable {
 	private DataFlavor flavour;
 	private MergeField mergeField;
 
-	public MergeFieldTransferable(MergeField mergeField) throws Exception{
+	public MergeFieldTransferable(MergeField mergeField) {
 		//TODO Ensure that the mimetype string is best for our purposes.
-		flavour = new DataFlavor ("text/html; class=java.lang.String;document=" +
-                "fragment" + ";charset=Unicode");
+		try {
+			flavour = new DataFlavor ("text/html; class=java.lang.String;document=" +
+			        "fragment" + ";charset=Unicode");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 		this.mergeField = mergeField;
 	}
 
