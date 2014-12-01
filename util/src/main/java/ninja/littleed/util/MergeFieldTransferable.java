@@ -10,8 +10,10 @@ public class MergeFieldTransferable implements Transferable {
 	private DataFlavor flavour;
 	private MergeField mergeField;
 
-	public MergeFieldTransferable(MergeField mergeField) {
-		flavour = DataFlavor.fragmentHtmlFlavor;
+	public MergeFieldTransferable(MergeField mergeField) throws Exception{
+		//TODO Ensure that the mimetype string is best for our purposes.
+		flavour = new DataFlavor ("text/html; class=java.lang.String;document=" +
+                "fragment" + ";charset=Unicode");
 		this.mergeField = mergeField;
 	}
 
@@ -31,5 +33,5 @@ public class MergeFieldTransferable implements Transferable {
 		return "<span style='mso-field-code:\" MERGEFIELD  " + mergeField.getEscapedFieldName()
 				+ "  \\\\* MERGEFORMAT \"'>«" + mergeField.getFieldName() + "»</span>";
 	}
-
+	
 }
